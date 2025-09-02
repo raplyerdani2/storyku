@@ -1,0 +1,127 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Courier New", Courier, monospace;
+}
+
+#skipcontent {
+  position: absolute;
+  left: -999px;
+  top: auto;
+  min-width: 50px;
+  min-height: 50px;
+  overflow: hidden;
+}
+
+#skipcontent:focus {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: auto;
+  height: auto;
+  background: #000;
+  color: #fff;
+  padding: 8px;
+  z-index: 1000;
+}
+
+.loadingContainer {
+  position: fixed; /* biar nempel di layar */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; /* full layar */
+  display: flex;
+  justify-content: center; /* center horizontal */
+  align-items: center; /* center vertical */
+  background: rgba(0, 0, 0, 0.4); /* opsional, efek overlay */
+  z-index: 9999; /* biar di atas konten lain */
+}
+
+.loading {
+  width: 80px;
+  height: 80px;
+  border: 10px solid #ddd;
+  border-top: 10px solid #333;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+h1 a {
+  color: aliceblue;
+  text-decoration: none;
+}
+
+header {
+  width: 100%;
+  background-color: rgb(255, 0, 0);
+  display: flex;
+  position: fixed;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  color: aliceblue;
+  z-index: 50;
+  border-bottom: 3px solid aliceblue;
+  box-shadow: 0px 3px 10px black;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: red;
+  color: aliceblue;
+  height: 100px;
+  font-weight: bold;
+}
+
+nav {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  font-weight: bold;
+}
+
+nav a {
+  list-style-type: none;
+  border: 2px solid white;
+  display: inline-block;
+  text-decoration: none;
+  color: aliceblue;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+input {
+  color: black;
+}
+
+button {
+  color: black;
+}
+
+#tombolKeluar {
+  background-color: aliceblue;
+  color: red;
+  border-radius: 10px;
+  padding: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}

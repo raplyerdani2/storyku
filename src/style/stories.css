@@ -1,0 +1,91 @@
+#storiesContainer {
+  width: 100%;
+}
+
+#storiesContainer2 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 30px 20px;
+}
+
+.mapCard {
+  color: black;
+  background-color: chartreuse;
+  height: 400px;
+  z-index: 0;
+}
+
+#storiesContainer {
+  width: 100%;
+}
+
+#storiesContainer2 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 30px 20px;
+}
+
+.storiesContainerCard {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  border-radius: 10px;
+  padding-top: 10px 10px 20px;
+}
+
+.storiesContainerCard a {
+  text-decoration: none;
+}
+
+#storiesContainerCard a {
+  text-decoration: none;
+}
+
+#card-story {
+  display: flex;
+  background-color: red;
+  height: auto;
+  padding: 15px 20px;
+  border-radius: 10px;
+  gap: 10px;
+  color: aliceblue;
+}
+
+#card-story a {
+  text-decoration: none;
+}
+
+#card-story a b {
+  color: aliceblue;
+}
+
+#card-story a p {
+  color: aliceblue;
+}
+
+#card-story-img {
+  width: 200px;
+  height: 100px;
+  overflow: hidden; /* biar gambar yang keluar tidak kelihatan */
+  border-radius: 10px; /* opsional */
+}
+
+#card-story-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background-color: #222; /* biar keliatan kotak kalau ada ruang kosong */
+}
+
+#mapStories {
+  width: 100%;
+  height: 500px;
+  background-color: aquamarine;
+  border: 2px solid black;
+  margin-top: 65px;
+  z-index: 20;
+}

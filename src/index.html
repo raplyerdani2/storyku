@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="icon" href="icon.ico" />
+    <link rel="manifest" href="manifest.json" />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <title>Storyku</title>
+    <style>
+      ::view-transition-old(root),
+      ::view-transition-new(root) {
+        animation-duration: 0.3s;
+        animation-timing-function: ease-in-out;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#app" id="skipcontent">Skip Content</a>
+    <header id="header">
+      <h1><a href="#/stories">STORYKU</a></h1>
+      <nav>
+        <a href="#/stories">HOME</a>
+        <a href="#/add-data">ADD DATA</a>
+        <button
+          id="tombolKeluar"
+          onclick="localStorage.removeItem('token'); location.hash = '/login'"
+        >
+          Log Out
+        </button>
+      </nav>
+    </header>
+    <div id="app" tabindex="-1"></div>
+    <footer id="footer">StoryKu - Copyright 2025</footer>
+    <script src="app.bundle.js"></script>
+  </body>
+</html>
