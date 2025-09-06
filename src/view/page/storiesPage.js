@@ -1,6 +1,4 @@
 import { getAllStoriesIdb } from "../../utils/db.js";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
 
 export const storiesPage = async (root, stories) => {
   let allStories = stories;
