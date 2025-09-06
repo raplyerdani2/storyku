@@ -1,8 +1,8 @@
 import { getAllStoriesIdb } from "../../utils/db.js";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import markerIcon from "leaflet/dist/images/marker-icon.png";
-import markerShadow from "leaflet/dist/images/marker-shadow.png";
+// import markerIcon from "leaflet/dist/images/marker-icon.png";
+// import markerShadow from "leaflet/dist/images/marker-shadow.png";
 
 export const storiesPage = async (root, stories) => {
   let allStories = stories;
@@ -48,11 +48,11 @@ export const storiesPage = async (root, stories) => {
   header.style.display = "flex";
   footer.style.display = "flex";
 
-  delete L.Icon.Default.prototype._getIconUrl;
-    L.Icon.Default.mergeOptions({
-      iconUrl: markerIcon,
-      shadowUrl: markerShadow,
-    });
+  // delete L.Icon.Default.prototype._getIconUrl;
+  //   L.Icon.Default.mergeOptions({
+  //     iconUrl: markerIcon,
+  //     shadowUrl: markerShadow,
+  //   });
 
   const myMap = L.map("mapStories").setView([0, 0], 2);
 
