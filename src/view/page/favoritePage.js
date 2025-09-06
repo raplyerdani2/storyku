@@ -1,5 +1,4 @@
 export const favroitePage = () => {
-  console.log(allStories);
   root.innerHTML = `
     <div id="storiesContainer">
       <div id="mapStories"></div>
