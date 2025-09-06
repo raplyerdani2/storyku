@@ -1,4 +1,8 @@
 import { precacheAndRoute } from "workbox-precaching";
+import { registerRoute } from "workbox-routing";
+import { CacheFirst } from "workbox-strategies";
+import { ExpirationPlugin } from "workbox-expiration";
+import { CacheableResponsePlugin } from "workbox-cacheable-response";
 
 precacheAndRoute(self.__WB_MANIFEST);
 
@@ -46,3 +50,17 @@ self.addEventListener("push", (event) => {
 
   event.waitUntil(self.registration.showNotification(title, options));
 });
+
+registerRoute(
+  ({ url }) => url.origin.includes("tile.openstreetmap.org"),
+  new CacheFirst({
+    cacheName: "osm-tiles",
+    plugins: [
+      new ExpirationPlugin({
+        maxEntries: 200,
+        maxAgeSeconds: 7 * 24 * 60 * 60, // Simpan cache 7 hari
+      }),
+      new CacheableResponsePlugin({ statuses: [200] }),
+    ],
+  })
+);

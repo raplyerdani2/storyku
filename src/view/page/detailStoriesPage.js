@@ -1,5 +1,7 @@
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
 
 export const detailStoriesPage = (root, story) => {
   root.innerHTML = `
@@ -18,6 +20,12 @@ export const detailStoriesPage = (root, story) => {
   const footer = document.getElementById("footer");
   header.style.display = "flex";
   footer.style.display = "flex";
+  
+  delete L.Icon.Default.prototype._getIconUrl;
+  L.Icon.Default.mergeOptions({
+    iconUrl: markerIcon,
+    shadowUrl: markerShadow,
+  });
 
   const coor = [story.lat, story.lon];
   if (coor[0] !== null || coor[1] !== null) {
@@ -28,6 +36,7 @@ export const detailStoriesPage = (root, story) => {
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: "&copy; OpenStreetMap contributors",
+      crossOrigin: true,
     }).addTo(myMap);
 
     const marker = L.marker(coor).addTo(myMap);
