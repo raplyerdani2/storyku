@@ -1,4 +1,4 @@
-import { askNotificationPermission, subscribeUser } from "../index.js";
+// import { askNotificationPermission, subscribeUser } from "../index.js";
 
 export const handlePost = {
   handleRegister: async (model, view, formData) => {
@@ -37,12 +37,12 @@ export const handlePost = {
   handleAddStory: async (model, view, token, formData) => {
     view.showLoading();
     const reg = await navigator.serviceWorker.getRegistration();
-    if (reg) {
-      const permission = await askNotificationPermission();
-      if (permission === "granted") {
-        await subscribeUser(reg);
-      }
-    }
+    // if (reg) {
+    //   const permission = await askNotificationPermission();
+    //   if (permission === "granted") {
+    //     await subscribeUser(reg);
+    //   }
+    // }
     try {
       const res = await model.addStory(formData, token);
       if (res.error) {
