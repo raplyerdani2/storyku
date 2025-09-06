@@ -43,17 +43,14 @@ export const handlePost = {
         await subscribeUser(reg);
       }
     }
-    try {
-      const res = await model.addStory(formData, token);
+    const res = await model.addStory(formData, token);
       if (res.error) {
         view.showMessage(res.message);
+        view.reload();
       } else {
         view.showMessage("Story berhasil ditambahkan!");
         view.navigate("/stories");
         view.reload();
       }
-    } catch {
-      const tempStory = Object.fromEntries(formData.entries());
-    }
   },
 };
