@@ -1,3 +1,6 @@
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+
 export const detailStoriesPage = (root, story) => {
   root.innerHTML = `
         <div id="detailStoriesContainer">
