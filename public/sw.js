@@ -1,11 +1,14 @@
 import { precacheAndRoute } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
-import { CacheFirst } from "workbox-strategies";
+import { CacheFirst, NetworkFirst, StaleWhileRevalidate } from "workbox-strategies";
 import { ExpirationPlugin } from "workbox-expiration";
 import { CacheableResponsePlugin } from "workbox-cacheable-response";
+import { BASE_URL } from "./config";
 
+// --- PRECACHE ---
 precacheAndRoute(self.__WB_MANIFEST);
 
+// --- INSTALL & ACTIVATE ---
 self.addEventListener("install", (event) => {
   console.log("Service worker is installing...");
   self.skipWaiting();
@@ -19,6 +22,7 @@ self.addEventListener("activate", (event) => {
   );
 });
 
+// --- PUSH NOTIFICATION ---
 const shownNotifications = new Set();
 
 self.addEventListener("push", (event) => {
@@ -51,6 +55,56 @@ self.addEventListener("push", (event) => {
   event.waitUntil(self.registration.showNotification(title, options));
 });
 
+// --- RUNTIME CACHING ---
+// Google Fonts
+registerRoute(
+  ({ url }) =>
+    url.origin === "https://fonts.googleapis.com" ||
+    url.origin === "https://fonts.gstatic.com",
+  new CacheFirst({ cacheName: "google-fonts" })
+);
+
+// Fontawesome / CDN
+registerRoute(
+  ({ url }) =>
+    url.origin === "https://cdnjs.cloudflare.com" || url.origin.includes("fontawesome"),
+  new CacheFirst({ cacheName: "fontawesome" })
+);
+
+// Avatar API
+registerRoute(
+  ({ url }) => url.origin === "https://ui-avatars.com",
+  new CacheFirst({
+    cacheName: "avatars-api",
+    plugins: [new CacheableResponsePlugin({ statuses: [0, 200] })],
+  })
+);
+
+// API JSON (kecuali image)
+registerRoute(
+  ({ request, url }) => {
+    const baseUrl = new URL(BASE_URL);
+    return baseUrl.origin === url.origin && request.destination !== "image";
+  },
+  new NetworkFirst({ cacheName: "storyku-api" })
+);
+
+// API Images
+registerRoute(
+  ({ request, url }) => {
+    const baseUrl = new URL("https://story-api.dicoding.dev/v1");
+    return baseUrl.origin === url.origin && request.destination === "image";
+  },
+  new StaleWhileRevalidate({ cacheName: "storyku-api-images" })
+);
+
+// Maptiler API
+registerRoute(
+  ({ url }) => url.origin.includes("maptiler"),
+  new CacheFirst({ cacheName: "maptiler-api" })
+);
+
+// OpenStreetMap tiles
 registerRoute(
   ({ url }) => url.origin.includes("tile.openstreetmap.org"),
   new CacheFirst({
@@ -58,7 +112,7 @@ registerRoute(
     plugins: [
       new ExpirationPlugin({
         maxEntries: 200,
-        maxAgeSeconds: 7 * 24 * 60 * 60, // Simpan cache 7 hari
+        maxAgeSeconds: 7 * 24 * 60 * 60, // 7 hari
       }),
       new CacheableResponsePlugin({ statuses: [200] }),
     ],
