@@ -44,14 +44,14 @@ window.addEventListener("hashchange", () => {
       renderPage();
     });
   } else {
-    renderPage(); // fallback jika browser tidak support
+    renderPage();
   }
 });
 
 window.addEventListener("hashchange", () => {
   if (document.startViewTransition) {
     document.startViewTransition(() => {
-      router.resolve(); // jalankan router
+      router.resolve();
     });
   } else {
     router.resolve();
@@ -59,17 +59,14 @@ window.addEventListener("hashchange", () => {
 });
 
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker
-    .getRegistration()
-    .then(async (reg) => {
-      if (!reg) {
-        reg = await navigator.serviceWorker.register("/sw.js");
-        console.log("Service Worker baru terdaftar:", reg);
-      } else {
-        console.log("Service Worker sudah ada:", reg);
-      }
-    })
-    .catch((err) => console.error("SW registration failed", err));
+  window.addEventListener("load", async () => {
+    try {
+      const reg = await navigator.serviceWorker.register("/sw.js");
+      console.log("✅ Service Worker terdaftar:", reg);
+    } catch (err) {
+      console.error("❌ Gagal daftar Service Worker:", err);
+    }
+  });
 }
 
 export async function askNotificationPermission() {
