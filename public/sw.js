@@ -91,11 +91,17 @@ registerRoute(
 
 // API Images
 registerRoute(
-  ({ request, url }) => {
-    const baseUrl = new URL("https://story-api.dicoding.dev/v1");
-    return baseUrl.origin === url.origin && request.destination === "image";
-  },
-  new StaleWhileRevalidate({ cacheName: "storyku-api-images" })
+  ({ url }) => url.origin === "https://story-api.dicoding.dev",
+  new NetworkFirst({
+    cacheName: "storyku-api",
+    plugins: [
+      new CacheableResponsePlugin({ statuses: [0, 200] }),
+      new ExpirationPlugin({
+        maxEntries: 50,
+        maxAgeSeconds: 7 * 24 * 60 * 60, // cache 7 hari
+      }),
+    ],
+  })
 );
 
 // Maptiler API
