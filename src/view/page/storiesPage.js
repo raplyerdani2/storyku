@@ -1,3 +1,4 @@
+import { getAllStoriesIdb } from "../../utils/db.js";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
@@ -12,6 +13,12 @@ L.Icon.Default.mergeOptions({
 });
 
 export const storiesPage = async (root, stories) => {
+  let allStories = stories;
+  if (!stories || stories.length === 0) {
+    console.log("Offline mode: ambil dari IndexedDB");
+    allStories = await getAllStoriesIdb();
+  }
+
   root.innerHTML = `
     <div id="storiesContainer">
       <div id="mapStories"></div>
